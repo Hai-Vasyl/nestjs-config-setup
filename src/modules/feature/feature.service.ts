@@ -7,6 +7,6 @@ export class FeatureService {
   constructor(private readonly configService: ConfigService) {}
 
   getSomething() {
-    return this.configService.getConfigByKey('secret_key');
+    return this.configService.get('secret_key');
   }
 }

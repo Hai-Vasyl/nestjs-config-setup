@@ -1,10 +1,22 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 
 import { ConfigService } from './config.service';
 import { DecryptService } from './decrypt.service';
 
-@Module({
-  providers: [ConfigService, DecryptService],
-  exports: [ConfigService],
-})
-export class ConfigModule {}
+@Module({})
+export class ConfigModule {
+  static register(options): DynamicModule {
+    return {
+      module: ConfigModule,
+      providers: [
+        {
+          provide: 'CONFIG_OPTIONS',
+          useValue: options,
+        },
+        ConfigService,
+        DecryptService,
+      ],
+      exports: [ConfigService],
+    };
+  }
+}

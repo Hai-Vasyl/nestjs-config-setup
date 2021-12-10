@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 
-import { ConfigModule } from '../config/config.module';
+import { SharedConfigModule } from '../config/shared-config.module';
 import { FeatureController } from './feature.controller';
 import { FeatureService } from './feature.service';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [SharedConfigModule],
   controllers: [FeatureController],
   providers: [FeatureService],
 })

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 import { DecryptService } from './decrypt.service';
 
@@ -6,11 +6,16 @@ import { DecryptService } from './decrypt.service';
 export class ConfigService {
   private configs = {};
 
-  constructor(private readonly decryptService: DecryptService) {
+  constructor(
+    @Inject('CONFIG_OPTIONS') private readonly options,
+    private readonly decryptService: DecryptService,
+  ) {
+    // here we can configure initial setup according to injected options
+
     this.configs = this.decryptService.getDecryptedConfigs();
   }
 
-  getConfigByKey(key: string) {
+  get(key: string) {
     return this.configs[key];
   }
 }
